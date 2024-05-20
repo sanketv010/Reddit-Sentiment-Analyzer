@@ -4,11 +4,11 @@ import numpy as np
 import pandas as pd
 sys.path.append('src')
 from src.exception import CustomException
-from src.logger import logging
 import os
-from dataclasses import dataclass
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
+import nltk
+from src.logger import logging
 nltk.download('wordnet')
 nltk.download('punkt')
 
@@ -77,8 +77,6 @@ class DataTransformation:
             return(
                 self.data_transformation_config.root_dir
             )
-            
-            
         except Exception as e:
             logging.error(f"Error in data transformation: {str(e)}")
             raise CustomException(e, sys)  
@@ -86,5 +84,3 @@ class DataTransformation:
 if __name__ == "__main__":
     data_transformation = DataTransformation()
     data_transformation.get_data_transformer_object()
-
-
