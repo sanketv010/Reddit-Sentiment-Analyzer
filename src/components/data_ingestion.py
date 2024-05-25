@@ -1,5 +1,6 @@
 import os
 import sys
+from src.components.data_transformation import DataTransformation
 from src.logger import logging
 from src.exception import CustomException
 import pandas as pd
@@ -42,4 +43,7 @@ class DataIngestion:
 
 if __name__ == "__main__":
     data_ingestion = DataIngestion()
-    data_ingestion.initiate_data_ingestion()           
+    data_ingestion.initiate_data_ingestion()     
+
+    data_transformation = DataTransformation()
+    train_df, test_df, root_dir = data_transformation.initiate_data_transformation()     

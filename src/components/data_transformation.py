@@ -9,13 +9,14 @@ from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 import nltk
 from src.logger import logging
-nltk.download('wordnet')
-nltk.download('punkt')
+nltk.data.path.append('D:\\MLOps Project\\venv\\nltk_data')
+import joblib
 
 @dataclass
 class DataTransformationConfig:
-    root_dir: str=os.path.join("data_transformation")
-    data_path: str=os.path.join("data")
+    root_dir: str=os.path.join('data_transformation')
+    train_data_path: str = os.path.join('data', "train.csv")
+    test_data_path: str = os.path.join('data', "test.csv")
     
 class DataTransformation:
     def __init__(self):
@@ -39,13 +40,13 @@ class DataTransformation:
         sentence = " ".join(no_words)
         return sentence
 
-    def initiate_data_tranformation(self):
+    def initiate_data_transformation(self):
         logging.info("Data transformation started")
         try:
-            os.makedirs(os.path.dirname(self.data_transformation_config.root_dir), exist_ok=True)
+            os.makedirs(self.data_transformation_config.root_dir, exist_ok=True)
             
-            train_df=pd.read_csv(os.path.join(self.data_transformation_config,"train.csv"))
-            test_df=pd.read_csv(os.path.join(self.data_transformation_config,"test.csv"))
+            train_df=pd.read_csv(os.path.join(self.data_transformation_config.train_data_path))
+            test_df=pd.read_csv(os.path.join(self.data_transformation_config.test_data_path))
             
             logging.info("Train and Test data read")
 
@@ -69,18 +70,15 @@ class DataTransformation:
             })
             logging.info("Label Name Added")
             
-            train_df.to_csv(self.data_transformation_config.root_dir, index=False, header=True)
-            test_df.to_csv(self.data_transformation_config.root_dir, index=False, header=True)
+            train_df.to_csv(os.path.join(self.data_transformation_config.root_dir, "train_processed.csv"), index=False)
+            test_df.to_csv(os.path.join(self.data_transformation_config.root_dir, "test_processed.csv"), index=False)  
             
             logging.info("Transformed the data seccessfully")
+
+            joblib.dump(self, os.path.join(self.data_transformation_config.root_dir, "preprocessor.pkl"))
             
-            return(
-                self.data_transformation_config.root_dir
-            )
+            return train_df, test_df, self.data_transformation_config.root_dir
+        
         except Exception as e:
             logging.error(f"Error in data transformation: {str(e)}")
             raise CustomException(e, sys)  
-
-if __name__ == "__main__":
-    data_transformation = DataTransformation()
-    data_transformation.get_data_transformer_object()
