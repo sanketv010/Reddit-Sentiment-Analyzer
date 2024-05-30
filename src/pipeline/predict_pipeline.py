@@ -11,6 +11,7 @@ class PredictPipeline:
 
     def predict(self, input_data):
         try:
+            print("DATA:",input_data)
             logging.info(input_data)
             model_path=os.path.join('data',"model.pkl")
             preprocessor_path=os.path.join('data_transformation','preprocessor.pkl')
