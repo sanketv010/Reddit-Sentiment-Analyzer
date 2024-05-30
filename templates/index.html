@@ -1,23 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Prediction App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit Sentiment Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 28px;
+            margin: 0;
+        }
+        .header .subheading {
+            font-size: 18px;
+            color: #bbbbbb;
+            margin-top: 10px;
+        }
+        .container {
+            background: #1e1e1e;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px; /* Add space between the header and the container */
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin: 20px 0 10px;
+            color: #bbbbbb;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            background-color: #333;
+            color: #e0e0e0;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        h3 {
+            color: #e0e0e0;
+            margin-top: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0 0;
+            color: #e0e0e0;
+        }
+        li {
+            background: #2c2c2c;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <h1>Enter Input Data</h1>
-    <form action="/predict" method="post">
-        <label for="input_data">Input Data:</label>
-        <input type="text" id="input_data" name="input_data">
-        <button type="submit">Predict</button>
-    </form>
-    {% if prediction is not none %}
-        <h3>
-            {% if prediction == 0 %}
-                The prediction is - No Stress
-            {% elif prediction == 1 %}
-                The prediction is - Stressed
-            {% endif %}
-        </h3>
-    {% endif %}
+    <div class="header">
+        <h1>Reddit Sentiment Analyzer</h1>
+        <div class="subheading">Analyze the sentiment of Reddit posts and comments</div>
+    </div>
+    <div class="container">
+        <form action="/predict" method="post">
+            <label for="input_data">Input Textual Data:</label>
+            <input type="text" id="input_data" name="input_data" autocomplete="off" required>
+            <button type="submit">Analyze</button>
+        </form>
+        {% if prediction is not none %}
+            <h3>
+                {% if prediction == 0 %}
+                    The person is not stressed.
+                    <h3>Suggested Subreddits:</h3>
+                {% elif prediction == 1 %}
+                    The person is stressed.
+                    <h3>Suggested Subreddits:</h3>
+                {% endif %}
+            </h3>
+            <ul>
+                {% for subreddit in selected_subreddits %}
+                    <li><a href="https://www.reddit.com/r/{{ subreddit }}" target="_blank">r/{{ subreddit }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    <br>
+    <div class="footer">
+        Developed by <a href="https://github.com/sanketv010">Sanket Verma</a>
+    </div>
 </body>
 </html>
