@@ -38,7 +38,7 @@ def predict():
                 stressed_subreddits if predictions == 1 else no_stress_subreddits, 5
             )
         #DEBUG
-        print(predictions)_
+        print(predictions)
         
         return render_template('index.html',prediction = predictions, selected_subreddits=selected_subreddits)
     
