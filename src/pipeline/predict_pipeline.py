@@ -15,9 +15,13 @@ class PredictPipeline:
             model_path=os.path.join('data',"model.pkl")
             preprocessor_path=os.path.join('data_transformation','preprocessor.pkl')
             print("Before Loading")
+            print("PATH_model:",model_path,"PATH_preproc:",preprocessor_path)
             model=load_object(file_path=model_path)
             preprocessor=load_object(file_path=preprocessor_path)
             print("After Loading")
+            params = model.get_params()
+            print("Model Parameters:", params)
+            print("#####")
             input_data=preprocessor.remove_stopwords(input_data)
             input_data=preprocessor.text_lemmatize(input_data)
             input_data = [input_data]
