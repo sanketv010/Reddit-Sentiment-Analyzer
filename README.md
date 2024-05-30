@@ -10,7 +10,7 @@ This repository contains code for a Reddit Sentiment Analyzer, which utilizes an
 ## Usage
 
 1. Install dependencies using `pip install -r requirements.txt`.
-2. Run the web application using `application.py` to allow users to analyze sentiments interactively.
+2. Run the web application using `app.py` to allow users to analyze sentiments interactively.
 
 ## License
 
