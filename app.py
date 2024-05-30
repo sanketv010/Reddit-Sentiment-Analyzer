@@ -6,9 +6,7 @@ from sklearn.preprocessing import StandardScaler
 from src.pipeline.predict_pipeline import PredictPipeline
 import random
 
-application=Flask(__name__)
-
-app = application
+app = Flask(__name__)
 
 stressed_subreddits = [
     'GetMotivated', 'UpliftingNews', 'KindVoice', 'decidingtobebetter',
