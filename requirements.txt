@@ -22,3 +22,4 @@ zipp==3.18.2
 nltk == 3.6.2
 xgboost
 flask
+gunicorn
