@@ -24,17 +24,17 @@ class PredictPipeline:
             print("After Loading")
             params = model.get_params()
             #print("Model Parameters:", params)
-            print("#####")
-            print("DATA:",input_data)
+            #print("#####")
+            #print("DATA:",input_data)
             
             input_data=preprocessor.remove_stopwords(input_data)
-            print("DATA:",input_data)
+            #print("DATA:",input_data)
             
             input_data=preprocessor.text_lemmatize(input_data)
-            print("DATA:",input_data)
+            #print("DATA:",input_data)
             
             input_data = [input_data]
-            print("DATA:",input_data)
+            #print("DATA:",input_data)
 
             
             preds = model.predict(input_data)
